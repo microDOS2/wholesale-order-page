@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wholesale Portal | microDOS(2)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #d1d5db; 
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #44f80c, #9a02d0, #ff66c4, #5c38be);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #38bdf8, #8b5cf6);
+            transition-property: transform, box-shadow;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2), 0 4px 6px -2px rgba(139, 92, 246, 0.1);
+        }
+        .btn-primary:disabled {
+            background: #334155;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: #94a3b8;
+        }
+        .card-bg {
+            background-color: #1e293b; /* Slate 800 */
+        }
+        .input-field {
+            background-color: #0f172a; /* Slate 900 for inner inputs */
+            border: 1px solid #334155; /* Slate 700 */
+            color: #f8fafc; /* Slate 50 */
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #38bdf8; /* Sky 500 */
+        }
+        /* Hide number input spinners */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        .qty-btn {
+            background-color: #334155;
+            color: #cbd5e1;
+            transition: all 0.2s;
+        }
+        .qty-btn:hover {
+            background-color: #475569;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-lg border-b border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="https://microdos2.github.io/SINGLE-LOCATION/" class="text-2xl font-bold cursor-pointer">
+                    <span class="text-[#44f80c]">micro</span><span class="text-[#9a02d0]">DOS</span><span class="text-[#ff66c4]">(2)</span>
+                </a>
+                <span class="hidden sm:inline-block px-3 py-1 bg-slate-800 text-sky-400 text-xs font-bold rounded-full border border-slate-700 uppercase tracking-wide">B2B Portal</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <span class="hidden md:block text-sm text-slate-400">Account: <span class="text-white font-medium">Approved Partner</span></span>
+                <a href="mailto:wholesale@microdos2.com" class="text-sm text-slate-300 hover:text-white transition-colors">Support</a>
+                <a href="https://microdos2.github.io/SINGLE-LOCATION/" class="px-4 py-2 text-sm text-white font-semibold rounded-lg border border-slate-700 hover:bg-slate-800 transition-colors">
+                    Logout
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow py-12">
+        <div class="container mx-auto px-4 sm:px-6">
+            
+            <div class="mb-10">
+                <h1 class="text-3xl font-extrabold text-white mb-2">Wholesale Order Form</h1>
+                <p class="text-slate-400">Select your bulk quantities below. Minimum order quantity (MOQ) is 1 Display Box.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                
+                <!-- Product List (Left Column) -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Product 1: Retail Display Box -->
+                    <div class="card-bg border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-lg">
+                        <div class="w-full md:w-32 h-32 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0 relative overflow-hidden">
+                            <!-- Placeholder for product image -->
+                            <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            <div class="absolute top-2 left-2 bg-sky-500/20 text-sky-400 text-[10px] font-bold px-2 py-1 rounded">MOQ: 1</div>
+                        </div>
+                        <div class="flex-grow w-full">
+                            <h3 class="text-xl font-bold text-white mb-1">Retail Display Box</h3>
+                            <p class="text-sm text-slate-400 mb-3">Contains 9 Retail Boxes (10 pills per pack). Perfect for countertop point-of-sale. Comes free with initial order.</p>
+                            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Unit Cost: <span class="text-white">$22.50</span> <span class="text-slate-500 font-normal">/ per pack of 10 pills</span></div>
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">MSRP: <span class="text-white">$45.95</span> <span class="text-slate-500 font-normal">per box of 10 pills</span></div>
+                                <div class="bg-green-500/10 text-green-400 px-3 py-1.5 rounded-md border border-green-500/20">Margin: ~51%</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
+                            <span class="text-lg font-bold text-white mb-3 inline-block">$202.50 <span class="text-xs text-slate-500 font-normal">/ box</span></span>
+                            <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-display', -1)">-</button>
+                                <input type="number" id="qty-display" class="input-field w-14 h-8 bg-transparent border-none text-white font-bold" value="0" min="0" onchange="calculateTotals()">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-display', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Master Case -->
+                    <div class="card-bg border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-gradient-to-r from-[#9a02d0] to-[#5c38be] text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-lg uppercase tracking-wider">Best Value</div>
+                        
+                        <div class="w-full md:w-32 h-32 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0">
+                            <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <div class="flex-grow w-full">
+                            <h3 class="text-xl font-bold text-white mb-1">Master Case</h3>
+                            <p class="text-sm text-slate-400 mb-3">Contains 10 Display Boxes (100 Retail Boxes of 10 pills). Ideal for high-volume distributors.</p>
+                            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Unit Cost: <span class="text-white">$22.50</span> <span class="text-slate-500 font-normal">/ pack + 10 free boxes of 10 pills</span></div>
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">MSRP: <span class="text-white">$45.95</span> <span class="text-slate-500 font-normal">per box of 10 pills</span></div>
+                                <div class="bg-green-500/10 text-green-400 px-3 py-1.5 rounded-md border border-green-500/20">Margin: ~60%</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
+                            <span class="text-lg font-bold text-white mb-3 inline-block">$1,822.50 <span class="text-xs text-slate-500 font-normal">/ case</span></span>
+                            <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-master', -1)">-</button>
+                                <input type="number" id="qty-master" class="input-field w-14 h-8 bg-transparent border-none text-white font-bold" value="0" min="0" onchange="calculateTotals()">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-master', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product: 2-Pill Trial Size -->
+                    <div class="card-bg border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-lg">
+                        <div class="w-full md:w-32 h-32 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0">
+                            <!-- Placeholder icon for trial size -->
+                            <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div class="flex-grow w-full">
+                            <h3 class="text-xl font-bold text-white mb-1">2-Pill Trial Pack bundle</h3>
+                            <p class="text-sm text-slate-400 mb-3">Contains 10 Trial Packs (2 pills). Ideal for impulse purchases at the register and new customer acquisition.</p>
+                            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Unit Cost: <span class="text-white">$4.98</span> <span class="text-slate-500 font-normal">/ pack</span></div>
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">MSRP: <span class="text-white">$9.95</span></div>
+                                <div class="bg-green-500/10 text-green-400 px-3 py-1.5 rounded-md border border-green-500/20">Margin: ~50%</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
+                            <span class="text-lg font-bold text-white mb-3 inline-block">$49.80 <span class="text-xs text-slate-500 font-normal">/ bundle</span></span>
+                            <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-trial', -1)">-</button>
+                                <input type="number" id="qty-trial" class="input-field w-14 h-8 bg-transparent border-none text-white font-bold" value="0" min="0" onchange="calculateTotals()">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-trial', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Sample Pack -->
+                    <div class="card-bg border border-slate-800 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-md opacity-80 hover:opacity-100 transition-opacity">
+                        <div class="w-full md:w-32 h-24 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0">
+                            <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                        </div>
+                        <div class="flex-grow w-full">
+                            <h3 class="text-lg font-bold text-white mb-1">B2B Sample Kit</h3>
+                            <p class="text-sm text-slate-400 mb-2">Limit 1 per account. Includes marketing materials and 2 Retail boxes of 10 pills and 6 trial packs of 2 pills for staff testing.</p>
+                            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Retail Value: <span class="text-white">$151.60</span></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
+                            <span class="text-lg font-bold text-white mb-3 inline-block">$45.00 <span class="text-xs text-slate-500 font-normal">/ kit</span></span>
+                            <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-sample', -1, 1)">-</button>
+                                <input type="number" id="qty-sample" class="input-field w-14 h-8 bg-transparent border-none text-white font-bold" value="0" min="0" max="1" readonly>
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-sample', 1, 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Order Summary Sidebar (Right Column) -->
+                <div class="lg:col-span-1">
+                    <div class="card-bg border border-slate-700 rounded-xl p-6 sticky top-28 shadow-xl">
+                        <h2 class="text-xl font-bold text-white mb-6 border-b border-slate-700 pb-4">Purchase Order Summary</h2>
+                        
+                        <div id="empty-cart-msg" class="text-sm text-slate-500 italic mb-6 text-center py-4">
+                            Adjust quantities to start building your PO.
+                        </div>
+
+                        <div id="cart-items" class="space-y-3 mb-6 hidden">
+                            <!-- Items injected here by JS -->
+                        </div>
+
+                        <div class="border-t border-slate-700 pt-4 space-y-3 text-sm">
+                            <div class="flex justify-between text-slate-400">
+                                <span>Subtotal</span>
+                                <span id="summary-subtotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>Estimated Shipping</span>
+                                <span id="summary-shipping">TBD</span>
+                            </div>
+                            <div class="flex justify-between text-white font-bold text-lg pt-2 border-t border-slate-800">
+                                <span>Total Due</span>
+                                <span id="summary-total" class="text-sky-400">$0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 space-y-4">
+                            <button id="submit-po-btn" class="w-full btn-primary text-white font-bold py-4 rounded-lg flex items-center justify-center" disabled>
+                                Submit Purchase Order
+                            </button>
+                            <p class="text-xs text-slate-500 text-center leading-relaxed">
+                                Submitting generates a formal invoice sent to your registered email. Payment is required prior to fulfillment unless Net-30 terms are established.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-[100] hidden bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="card-bg border border-slate-700 rounded-2xl p-8 max-w-md w-full text-center shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="success-modal-content">
+            <div class="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">PO Submitted Successfully</h2>
+            <p class="text-slate-400 mb-6 text-sm">Invoice #<span id="invoice-ref" class="font-mono text-white"></span> has been generated. Our fulfillment team will email you the formal invoice and payment link shortly.</p>
+            <button onclick="closeModal()" class="w-full px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg transition-colors border border-slate-600">
+                Close & Return to Portal
+            </button>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 border-t border-slate-800 mt-auto">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                <p>&copy; 2026 <span class="font-bold"><span class="text-[#44f80c]">micro</span><span class="text-[#9a02d0]">DOS</span><span class="text-[#ff66c4]">(2)</span></span> Inc. B2B Wholesale.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-slate-400 transition-colors">Partner Terms & Conditions</a>
+                    <a href="mailto:wholesale@microdos2.com" class="hover:text-slate-400 transition-colors">Contact Fulfillment</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = {
+            'qty-display': { name: 'Retail Display Box', price: 202.50 },
+            'qty-master': { name: 'Master Case', price: 1822.50 },
+            'qty-trial': { name: '2-Pill Trial Pack bundle', price: 49.80 },
+            'qty-sample': { name: 'B2B Sample Kit', price: 45.00 }
+        };
+
+        function updateQty(id, change, max = Infinity) {
+            const input = document.getElementById(id);
+            let current = parseInt(input.value) || 0;
+            let newVal = current + change;
+            
+            if (newVal < 0) newVal = 0;
+            if (newVal > max) newVal = max;
+            
+            input.value = newVal;
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            let subtotal = 0;
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+            const submitBtn = document.getElementById('submit-po-btn');
+            
+            cartItemsContainer.innerHTML = '';
+            let hasItems = false;
+
+            for (const [id, item] of Object.entries(products)) {
+                const qty = parseInt(document.getElementById(id).value) || 0;
+                if (qty > 0) {
+                    hasItems = true;
+                    const itemTotal = qty * item.price;
+                    subtotal += itemTotal;
+                    
+                    cartItemsContainer.innerHTML += `
+                        <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-2">
+                            <div>
+                                <span class="text-white font-medium">${item.name}</span>
+                                <span class="text-slate-500 ml-2">x${qty}</span>
+                            </div>
+                            <span class="text-slate-300">$${itemTotal.toLocaleString('en-US', {minimumFractionDigits: 2})}</span>
+                        </div>
+                    `;
+                }
+            }
+
+            if (hasItems) {
+                emptyMsg.classList.add('hidden');
+                cartItemsContainer.classList.remove('hidden');
+                submitBtn.disabled = false;
+            } else {
+                emptyMsg.classList.remove('hidden');
+                cartItemsContainer.classList.add('hidden');
+                submitBtn.disabled = true;
+            }
+
+            document.getElementById('summary-subtotal').textContent = `$${subtotal.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+            
+            // Shipping calculation logic for B2B (e.g., Free over $1000)
+            let shipping = subtotal > 1000 ? 0 : (subtotal > 0 ? 35.00 : 0);
+            
+            if (hasItems) {
+                document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Free (Promo)' : `$${shipping.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+                document.getElementById('summary-shipping').className = shipping === 0 ? 'text-green-400' : 'text-slate-400';
+            } else {
+                document.getElementById('summary-shipping').textContent = 'TBD';
+                document.getElementById('summary-shipping').className = 'text-slate-400';
+            }
+
+            const total = subtotal + shipping;
+            document.getElementById('summary-total').textContent = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        }
+
+        // Handle PO Submission
+        document.getElementById('submit-po-btn').addEventListener('click', function() {
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-300 border-t-white rounded-full animate-spin"></span>';
+            
+            // Simulate network request
+            setTimeout(() => {
+                // Generate fake PO number
+                const refNumber = 'PO-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                document.getElementById('invoice-ref').textContent = refNumber;
+                
+                const modal = document.getElementById('success-modal');
+                const modalContent = document.getElementById('success-modal-content');
+                
+                modal.classList.remove('hidden');
+                // Trigger reflow
+                void modal.offsetWidth;
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+                
+                // Reset form
+                Object.keys(products).forEach(id => document.getElementById(id).value = 0);
+                calculateTotals();
+                btn.innerHTML = 'Submit Purchase Order';
+                
+            }, 1200);
+        });
+
+        function closeModal() {
+            const modal = document.getElementById('success-modal');
+            const modalContent = document.getElementById('success-modal-content');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Initialize calculation on load to ensure state is clean
+        document.addEventListener('DOMContentLoaded', calculateTotals);
+
+    </script>
+</body>
+</html>
