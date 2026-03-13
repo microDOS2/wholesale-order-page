@@ -165,7 +165,31 @@
                         </div>
                     </div>
 
-                    <!-- Product: 2-Pill Trial Size -->
+                    <!-- Product 3: Individual Retail Box -->
+                    <div class="card-bg border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-lg">
+                        <div class="w-full md:w-32 h-32 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0">
+                            <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        </div>
+                        <div class="flex-grow w-full">
+                            <h3 class="text-xl font-bold text-white mb-1">Individual Retail Box</h3>
+                            <p class="text-sm text-slate-400 mb-3">Single retail-ready box containing 10 pills. Ideal for refilling stock or testing specific market demand.</p>
+                            <div class="flex flex-wrap gap-4 text-sm font-medium">
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Unit Cost: <span class="text-white">$22.50</span> <span class="text-slate-500 font-normal">/ box</span></div>
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">MSRP: <span class="text-white">$45.95</span></div>
+                                <div class="bg-green-500/10 text-green-400 px-3 py-1.5 rounded-md border border-green-500/20">Margin: ~51%</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
+                            <span class="text-lg font-bold text-white mb-3 inline-block">$22.50 <span class="text-xs text-slate-500 font-normal">/ box</span></span>
+                            <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-individual', -1)">-</button>
+                                <input type="number" id="qty-individual" class="input-field w-14 h-8 bg-transparent border-none text-white font-bold" value="0" min="0" onchange="calculateTotals()">
+                                <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-individual', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: 2-Pill Trial Pack bundle -->
                     <div class="card-bg border border-slate-700 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-lg">
                         <div class="w-full md:w-32 h-32 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0">
                             <!-- Placeholder icon for trial size -->
@@ -190,7 +214,7 @@
                         </div>
                     </div>
 
-                    <!-- Product 3: Sample Pack -->
+                    <!-- Product 5: B2B Sample Kit -->
                     <div class="card-bg border border-slate-800 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center shadow-md opacity-80 hover:opacity-100 transition-opacity">
                         <div class="w-full md:w-32 h-24 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center shrink-0">
                             <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
@@ -202,7 +226,7 @@
                                 <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Retail Value: <span class="text-white">$151.60</span></div>
                             </div>
                         </div>
-                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
+                        <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
                             <span class="text-lg font-bold text-white mb-3 inline-block">$45.00 <span class="text-xs text-slate-500 font-normal">/ kit</span></span>
                             <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
                                 <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-sample', -1, 1)">-</button>
@@ -287,6 +311,7 @@
         const products = {
             'qty-display': { name: 'Retail Display Box', price: 202.50 },
             'qty-master': { name: 'Master Case', price: 1822.50 },
+            'qty-individual': { name: 'Individual Retail Box', price: 22.50 },
             'qty-trial': { name: '2-Pill Trial Pack bundle', price: 49.80 },
             'qty-sample': { name: 'B2B Sample Kit', price: 45.00 }
         };
@@ -313,7 +338,10 @@
             let hasItems = false;
 
             for (const [id, item] of Object.entries(products)) {
-                const qty = parseInt(document.getElementById(id).value) || 0;
+                const qtyInput = document.getElementById(id);
+                if (!qtyInput) continue;
+                
+                const qty = parseInt(qtyInput.value) || 0;
                 if (qty > 0) {
                     hasItems = true;
                     const itemTotal = qty * item.price;
@@ -374,7 +402,9 @@
                 let orderList = "";
                 let subtotal = 0;
                 for (const [id, item] of Object.entries(products)) {
-                    const qty = parseInt(document.getElementById(id).value) || 0;
+                    const qtyInput = document.getElementById(id);
+                    if (!qtyInput) continue;
+                    const qty = parseInt(qtyInput.value) || 0;
                     if (qty > 0) {
                         const lineTotal = qty * item.price;
                         subtotal += lineTotal;
@@ -411,7 +441,10 @@
                 modalContent.classList.add('scale-100', 'opacity-100');
                 
                 // Reset form
-                Object.keys(products).forEach(id => document.getElementById(id).value = 0);
+                Object.keys(products).forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) input.value = 0;
+                });
                 calculateTotals();
                 btn.innerHTML = 'Submit Purchase Order';
                 
