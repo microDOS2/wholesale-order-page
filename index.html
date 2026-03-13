@@ -370,6 +370,37 @@
                 const refNumber = 'PO-' + Math.random().toString(36).substr(2, 6).toUpperCase();
                 document.getElementById('invoice-ref').textContent = refNumber;
                 
+                // Build Email Content
+                let orderList = "";
+                let subtotal = 0;
+                for (const [id, item] of Object.entries(products)) {
+                    const qty = parseInt(document.getElementById(id).value) || 0;
+                    if (qty > 0) {
+                        const lineTotal = qty * item.price;
+                        subtotal += lineTotal;
+                        orderList += `${item.name}: ${qty} units - $${lineTotal.toFixed(2)}\n`;
+                    }
+                }
+                
+                const shipping = subtotal > 1000 ? 0 : 35.00;
+                const grandTotal = subtotal + shipping;
+                
+                const subject = encodeURIComponent(`Purchase Order Submission: ${refNumber}`);
+                const body = encodeURIComponent(
+                    `New Purchase Order Details:\n` +
+                    `Reference: ${refNumber}\n\n` +
+                    `Order Items:\n` +
+                    `${orderList}\n` +
+                    `Subtotal: $${subtotal.toFixed(2)}\n` +
+                    `Shipping: $${shipping.toFixed(2)}\n` +
+                    `Total Due: $${grandTotal.toFixed(2)}\n\n` +
+                    `Please prepare the formal invoice for this partner.`
+                );
+                
+                const recipients = "paynelynn@live.com,holtcrowder@gmail.com";
+                window.location.href = `mailto:${recipients}?subject=${subject}&body=${body}`;
+                
+                // Show Success Modal
                 const modal = document.getElementById('success-modal');
                 const modalContent = document.getElementById('success-modal-content');
                 
