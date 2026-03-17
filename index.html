@@ -150,13 +150,13 @@
                             <h3 class="text-xl font-bold text-white mb-1">Master Case</h3>
                             <p class="text-sm text-slate-400 mb-3">Contains 10 Display Boxes (100 Retail Boxes of 10 pills). Ideal for high-volume distributors.</p>
                             <div class="flex flex-wrap gap-4 text-sm font-medium">
-                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Unit Cost: <span class="text-white">$22.50</span> <span class="text-slate-500 font-normal">/ pack + 10 free boxes of 10 pills</span></div>
+                                <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">Unit Cost: <span class="text-white">$22.50</span> <span class="text-slate-500 font-normal">/ pack</span></div>
                                 <div class="bg-slate-900 px-3 py-1.5 rounded-md border border-slate-800">MSRP: <span class="text-white">$45.95</span> <span class="text-slate-500 font-normal">per box of 10 pills</span></div>
-                                <div class="bg-green-500/10 text-green-400 px-3 py-1.5 rounded-md border border-green-500/20">Margin: ~59.94%</div>
+                                <div class="bg-green-500/10 text-green-400 px-3 py-1.5 rounded-md border border-green-500/20">Margin: ~51%</div>
                             </div>
                         </div>
                         <div class="flex flex-col items-end w-full md:w-auto shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6 mt-2 md:mt-0">
-                            <span class="text-lg font-bold text-white mb-3 inline-block">$2,025.00 <span class="text-xs text-slate-500 font-normal">/ case</span></span>
+                            <span class="text-lg font-bold text-white mb-3 inline-block">$2,250.00 <span class="text-xs text-slate-500 font-normal">/ case</span></span>
                             <div class="flex items-center bg-slate-900 rounded-lg p-1 border border-slate-700">
                                 <button type="button" class="qty-btn w-8 h-8 rounded flex items-center justify-center" onclick="updateQty('qty-master', -1)">-</button>
                                 <input type="number" id="qty-master" class="input-field w-14 h-8 bg-transparent border-none text-white font-bold" value="0" min="0" onchange="calculateTotals()">
@@ -310,7 +310,7 @@
     <script>
         const products = {
             'qty-display': { name: 'Retail Display Box', price: 202.50 },
-            'qty-master': { name: 'Master Case', price: 1822.50 },
+            'qty-master': { name: 'Master Case', price: 2250.00 },
             'qty-individual': { name: 'Individual Retail Box', price: 22.50 },
             'qty-trial': { name: '2-Pill Trial Pack bundle', price: 49.80 },
             'qty-sample': { name: 'B2B Sample Kit', price: 45.00 }
